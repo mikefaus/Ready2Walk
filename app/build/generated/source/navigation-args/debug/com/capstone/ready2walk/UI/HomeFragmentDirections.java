@@ -13,4 +13,9 @@ public class HomeFragmentDirections {
   public static NavDirections actionStartSampling() {
     return new ActionOnlyNavDirections(R.id.actionStartSampling);
   }
+
+  @NonNull
+  public static NavDirections actionHomeFragmentToFilesFragment() {
+    return new ActionOnlyNavDirections(R.id.action_homeFragment_to_filesFragment);
+  }
 }

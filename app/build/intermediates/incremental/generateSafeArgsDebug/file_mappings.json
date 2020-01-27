@@ -1,1 +1,1 @@
-[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["com.capstone.ready2walk.UI.HomeFragmentDirections","com.capstone.ready2walk.UI.SamplingFragmentDirections"]}]
+[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["com.capstone.ready2walk.UI.HomeFragmentDirections","com.capstone.ready2walk.UI.SamplingFragmentDirections","com.capstone.ready2walk.UI.FilesFragmentDirections","com.capstone.ready2walk.UI.SessionViewDirections","com.capstone.ready2walk.UI.SessionViewArgs"]}]

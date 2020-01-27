@@ -1,21 +1,24 @@
 package com.capstone.ready2walk.Database;
 
 import android.database.Cursor;
-import androidx.lifecycle.LiveData;
+import androidx.room.CoroutinesRoom;
+import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
-import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import java.lang.Exception;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import kotlin.Unit;
+import kotlin.coroutines.Continuation;
 
 @SuppressWarnings({"unchecked", "deprecation"})
 public final class SessionDao_Impl implements SessionDao {
@@ -23,7 +26,9 @@ public final class SessionDao_Impl implements SessionDao {
 
   private final EntityInsertionAdapter<Sessions> __insertionAdapterOfSessions;
 
-  private final SharedSQLiteStatement __preparedStmtOfDeleteAll;
+  private final EntityDeletionOrUpdateAdapter<Sessions> __deletionAdapterOfSessions;
+
+  private final EntityDeletionOrUpdateAdapter<Sessions> __updateAdapterOfSessions;
 
   public SessionDao_Impl(RoomDatabase __db) {
     this.__db = __db;
@@ -43,46 +48,92 @@ public final class SessionDao_Impl implements SessionDao {
         }
       }
     };
-    this.__preparedStmtOfDeleteAll = new SharedSQLiteStatement(__db) {
+    this.__deletionAdapterOfSessions = new EntityDeletionOrUpdateAdapter<Sessions>(__db) {
       @Override
       public String createQuery() {
-        final String _query = "DELETE FROM sessions_table";
-        return _query;
+        return "DELETE FROM `sessions_table` WHERE `id` = ?";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, Sessions value) {
+        stmt.bindLong(1, value.getId());
+      }
+    };
+    this.__updateAdapterOfSessions = new EntityDeletionOrUpdateAdapter<Sessions>(__db) {
+      @Override
+      public String createQuery() {
+        return "UPDATE OR ABORT `sessions_table` SET `id` = ?,`sessionDate` = ? WHERE `id` = ?";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, Sessions value) {
+        stmt.bindLong(1, value.getId());
+        if (value.getSessionDate() == null) {
+          stmt.bindNull(2);
+        } else {
+          stmt.bindString(2, value.getSessionDate());
+        }
+        stmt.bindLong(3, value.getId());
       }
     };
   }
 
   @Override
-  public void addSession(final Sessions sessions) {
-    __db.assertNotSuspendingTransaction();
-    __db.beginTransaction();
-    try {
-      __insertionAdapterOfSessions.insert(sessions);
-      __db.setTransactionSuccessful();
-    } finally {
-      __db.endTransaction();
-    }
+  public Object addSession(final Sessions sessions, final Continuation<? super Unit> p1) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __insertionAdapterOfSessions.insert(sessions);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, p1);
   }
 
   @Override
-  public void deleteAll() {
-    __db.assertNotSuspendingTransaction();
-    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteAll.acquire();
-    __db.beginTransaction();
-    try {
-      _stmt.executeUpdateDelete();
-      __db.setTransactionSuccessful();
-    } finally {
-      __db.endTransaction();
-      __preparedStmtOfDeleteAll.release(_stmt);
-    }
+  public Object deleteSession(final Sessions sessions, final Continuation<? super Unit> p1) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __deletionAdapterOfSessions.handle(sessions);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, p1);
   }
 
   @Override
-  public LiveData<List<Sessions>> getAllSessions() {
-    final String _sql = "SELECT * from sessions_table";
+  public Object updateSession(final Sessions sessions, final Continuation<? super Unit> p1) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __updateAdapterOfSessions.handle(sessions);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, p1);
+  }
+
+  @Override
+  public Object getAllSessions(final Continuation<? super List<Sessions>> p0) {
+    final String _sql = "SELECT * from sessions_table ORDER By id DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
-    return __db.getInvalidationTracker().createLiveData(new String[]{"sessions_table"}, false, new Callable<List<Sessions>>() {
+    return CoroutinesRoom.execute(__db, false, new Callable<List<Sessions>>() {
       @Override
       public List<Sessions> call() throws Exception {
         final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
@@ -103,13 +154,9 @@ public final class SessionDao_Impl implements SessionDao {
           return _result;
         } finally {
           _cursor.close();
+          _statement.release();
         }
       }
-
-      @Override
-      protected void finalize() {
-        _statement.release();
-      }
-    });
+    }, p0);
   }
 }

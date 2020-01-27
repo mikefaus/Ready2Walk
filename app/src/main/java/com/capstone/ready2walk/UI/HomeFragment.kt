@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 /**
  * A simple [Fragment] subclass.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +34,12 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionStartSampling()
             Navigation.findNavController(it).navigate(action)
         }
+        filesButton.setOnClickListener {
+            // make files button go to the files fragment
+            val action = HomeFragmentDirections.actionHomeFragmentToFilesFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
+
 
     }
 

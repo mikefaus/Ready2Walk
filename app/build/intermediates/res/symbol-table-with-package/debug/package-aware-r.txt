@@ -1145,6 +1145,7 @@ drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
 id CTRL
+id DeleteSession
 id FUNCTION
 id META
 id SHIFT
@@ -1195,12 +1196,16 @@ id action_bar_title
 id action_container
 id action_context_bar
 id action_divider
+id action_filesFragment_to_homeFragment2
+id action_filesFragment_to_sessionView
+id action_homeFragment_to_filesFragment
 id action_image
 id action_menu_divider
 id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_sessionView_to_filesFragment
 id action_text
 id actions
 id activity_chooser_view_content
@@ -1235,6 +1240,7 @@ id coordinator
 id custom
 id customPanel
 id dark
+id dateSummary
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1255,6 +1261,7 @@ id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
 id filesButton
+id filesFragment
 id fill
 id fill_horizontal
 id fill_vertical
@@ -1317,6 +1324,7 @@ id plus_one_button
 id progress_circular
 id progress_horizontal
 id radio
+id recycler_view_files
 id right
 id right_icon
 id right_side
@@ -1342,6 +1350,7 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id selected
+id sessionView
 id shortcut
 id showCustom
 id showHome
@@ -1380,6 +1389,8 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id text_input_password_toggle
+id text_view_note
+id text_view_title
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -1481,9 +1492,11 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout fragment_files
 layout fragment_home
 layout fragment_plus_one
 layout fragment_sampling
+layout fragment_session_view
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include
 layout notification_action
@@ -1504,7 +1517,9 @@ layout notification_template_part_time
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
+layout session_layout
 layout support_simple_spinner_dropdown_item
+menu menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 navigation nav_graph
