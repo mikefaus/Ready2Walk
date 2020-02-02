@@ -1,6 +1,12 @@
 package com.capstone.ready2walk.UI
 
 
+import android.content.Context
+import android.content.Context.SENSOR_SERVICE
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
+
 import androidx.room.Database
 import com.capstone.ready2walk.Database.Sessions
 import com.capstone.ready2walk.Database.SessionsDatabase
@@ -25,13 +33,18 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class SamplingFragment : BaseFragment() {
+class SamplingFragment : BaseFragment(), SensorEventListener {
+
+    private var sensorManager: SensorManager? = null
+    var phoneAccelerometer: Sensor? = null
+    var running  = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_sampling, container, false)
     }
 
@@ -40,13 +53,21 @@ class SamplingFragment : BaseFragment() {
     @RequiresApi(Build.VERSION_CODES.O) // for local time option
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //intialize sensor service (dont forget the activity instance)
+        sensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        phoneAccelerometer = sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-
+        //functionality start button
         startButton.setOnClickListener {
+
             CoroutineScope(Dispatchers.Main + job1).launch {
                 context?.let {
                     //Create session entry
                     val dateSession = LocalDateTime.now()
+                    //val sensorData =
+
+
+
                     val session = Sessions(dateSession.toString())
                     SessionsDatabase(it).getSessionsDao().addSession(session)
                     it.toast("Session Started") //send verification message
@@ -55,6 +76,14 @@ class SamplingFragment : BaseFragment() {
         }
 
 
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     //saving without coroutines

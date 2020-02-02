@@ -1,5 +1,6 @@
 package com.capstone.ready2walk.Database;
 
+import android.hardware.SensorEvent;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

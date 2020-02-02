@@ -2,15 +2,13 @@ package com.capstone.ready2walk.UI
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseFragment : Fragment(){
 
-    lateinit var job1: Job //background task in coroutines
-    lateinit var job2: Job //background task in coroutines
+    lateinit var job1: CompletableJob //background task in coroutines
+    lateinit var job2: CompletableJob //background task in coroutines
 
     /**override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main //using main scope this coroutine job*/
