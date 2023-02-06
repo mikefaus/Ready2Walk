@@ -1,0 +1,5 @@
+# Ready2Walk
+
+University of Toronto Faculty of Applied Science and Engineering & Faculty of Arts and Sciences BME498 Capstone Project 2019-2020
+
+Gait rehabilitation requires objective measurements to inform patients of gait deviations such as uneven weight distributions, which they normally cannot detect on their own. These types of measurements exist but are restricted to research settings and not widely used during the rehabilitation process, especially for home rehabilitation. Our stakeholders have confirmed the need for a device that can provide patients with parametric feedback to help them detect and potentially correct uneven weight distribution at home. Implementation of such device could help by reducing the likelihood of developing secondary complications. The proposed engineering design uses existing gait parameters identified in research (e.g. trunk lateral lean, uneven insole ground reaction force) and incorporates it into a feedback device to be used by patients at home to help them correct their gait.
